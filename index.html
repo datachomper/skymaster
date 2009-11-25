@@ -1,0 +1,95 @@
+<!-- Holy shit! A game in 1 hour by Patrick Abel and Russ Meyerriecks -->
+<html>
+	<head>
+		<title>SKYMASTER!</title>
+		<script type="text/javascript" src="jquery-1.3.2.min.js"></script>
+	</head>
+	<body style="text-align: center;">
+	<h1 style="color: orange;">SKYMASTER!</h1>
+	<canvas id="can" width="800" height="400" style="border: 1px solid black"></canvas>
+	<script>
+		$(window).keydown(function(e){
+			var left;
+			var right;
+
+			var plane = new Image();
+			var planeleft = new Image();
+			var planeright = new Image();
+
+			var obst = new Array();
+
+			planex = 300;
+			planey = 100;
+			plane.src = "plane.png";
+			planeleft.src = "planeleft.png"
+			planeright.src = "planeright.png"
+
+			if(e.keyCode == 37){
+				left = true;
+			}
+			if(e.keyCode == 39){
+				right = true;
+			}
+		});
+		$(window).keyup(function(e){
+			if(e.keyCode == 37){
+				left = false;
+			}	
+			if(e.keyCode == 39){
+				right = false;
+			}	
+			if(e.keyCode == 32){
+				// Start the game!
+				run();
+			}
+		});
+
+		function run() {
+			var canvas = document.getElementById("can");
+			var ctx = canvas.getContext("2d");
+
+			//ctx.fillStyle = "rgb(200,0,0)";
+			//ctx.fillRect (10,10,55,50);
+
+			if(left){
+				planex--;
+				ctx.drawImage(planeleft,planex,planey);
+			}else if(right){
+				planex++;
+				ctx.drawImage(planeright,planex,planey);
+			}else{
+				ctx.drawImage(plane,planex,planey);
+			}
+
+			// Random obj generation
+			for(var i = 0; i < obst.length; i++){
+				var o = obst[i];
+				o.y += 3;
+				ctx.drawImage(o.type, o.x, o.y);
+
+				// If we scrolled past the bottom, delete obstacle
+				if(o.y > 500){
+					ob.splice(i,1);
+					i--;
+				}
+
+			// Put collision detection here
+			}
+
+			// Randomly place an obstacle on the screen
+			if(Math.floor(step*10)%10 == 0){
+				var type;
+				if(Math.floor(Math.random()*2) == 0){
+					type = blah;
+				} else {
+					type = blah;
+				}
+				var obj = {x: Math.floor(Math.random()*641*2), y:400, type: type};
+				obst.push(obj);
+			}
+
+			setTimeout("run();", 1);
+		}
+	</script>
+	</body>
+</html>
