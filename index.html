@@ -8,6 +8,7 @@
 	<h1 style="color: orange;">SKYMASTER!</h1>
 	<canvas id="can" width="800" height="400" style="border: 1px solid black"></canvas>
 	<h4>Sprites by <a href="http://prinzeugn.deviantart.com">Mark Simpson</a></h4>
+	<script type="text/javascript" src="libSkymaster.js"></script>
 	<script>
 		const FPS = 30;
 		var left;
@@ -29,6 +30,9 @@
 		planeleft.src = "planeleft.png";
 		planeright.src = "planeright.png";
 		bg.src = "bg.jpg";
+
+				var asteroid = new Asteroid();
+				obst.push(asteroid);
 
 		$(window).keydown(function(e){
 			if(e.keyCode == 37){
@@ -81,35 +85,21 @@
 			}else{
 				ctx.drawImage(plane,planex,planey);
 			}
-/*
-			// Random obj generation
+
+			// Obstacle updates
 			for(var i = 0; i < obst.length; i++){
 				var o = obst[i];
-				o.y += 3;
-				ctx.drawImage(o.type, o.x, o.y);
-
-				// If we scrolled past the bottom, delete obstacle
-				if(o.y > 500){
-					ob.splice(i,1);
-					i--;
+				if(!o.update(ctx)){
+					o.splice(i,1);
 				}
-
-			// Put collision detection here
 			}
 
 			// Randomly place an obstacle on the screen
-			if(Math.floor(step*10)%10 == 0){
-				var type;
-				if(Math.floor(Math.random()*2) == 0){
-					type = blah;
-				} else {
-					type = blah;
-				}
-				var obj = {x: Math.floor(Math.random()*641*2), y:400, type: type};
-				obst.push(obj);
+			if(Math.floor(Math.random()*30) == 1){
+				var asteroid = new Asteroid();
+				obst.push(asteroid);
 			}
-			setInterval(play, 1000/FPS);
-*/
+
 			setTimeout(play, 1000/FPS);
 		}
 	</script>
