@@ -7,23 +7,30 @@
 	<body style="text-align: center;">
 	<h1 style="color: orange;">SKYMASTER!</h1>
 	<canvas id="can" width="800" height="400" style="border: 1px solid black"></canvas>
+	<h4>Sprites by <a href="http://prinzeugn.deviantart.com">Mark Simpson</a></h4>
 	<script>
+		const FPS = 30;
+		var left;
+		var right;
+
+		var plane = new Image();
+		var planeleft = new Image();
+		var planeright = new Image();
+		var bg = new Image();
+
+		var obst = new Array();
+		var iteration = 0;
+		var debug = true;
+		var step = 0;
+
+		planex = 400;
+		planey = 300;
+		plane.src = "plane.png";
+		planeleft.src = "planeleft.png";
+		planeright.src = "planeright.png";
+		bg.src = "bg.jpg";
+
 		$(window).keydown(function(e){
-			var left;
-			var right;
-
-			var plane = new Image();
-			var planeleft = new Image();
-			var planeright = new Image();
-
-			var obst = new Array();
-
-			planex = 300;
-			planey = 100;
-			plane.src = "plane.png";
-			planeleft.src = "planeleft.png"
-			planeright.src = "planeright.png"
-
 			if(e.keyCode == 37){
 				left = true;
 			}
@@ -40,27 +47,41 @@
 			}	
 			if(e.keyCode == 32){
 				// Start the game!
-				run();
+				play();
 			}
 		});
 
-		function run() {
+		function play() {
 			var canvas = document.getElementById("can");
 			var ctx = canvas.getContext("2d");
 
-			//ctx.fillStyle = "rgb(200,0,0)";
-			//ctx.fillRect (10,10,55,50);
+			iteration++;
+
+//			ctx.fillStyle = "rgb(0,0,0)";
+//			ctx.fillRect (0, 0, canvas.width, canvas.height);
+			ctx.drawImage(bg, 0, 0);
+
+			if(debug){
+				ctx.font = "20px Times New Roman";
+				ctx.fillstyle = "rgb(254,254,254)";
+				//ctx.fillText(iteration+'', 0, 0);
+				ctx.fillText("hey", 10, 10);
+			}
 
 			if(left){
-				planex--;
+				if(planex > 0){
+					planex--;
+				}
 				ctx.drawImage(planeleft,planex,planey);
 			}else if(right){
-				planex++;
+				if(planex < (canvas.width - plane.width)){
+					planex++;
+				}
 				ctx.drawImage(planeright,planex,planey);
 			}else{
 				ctx.drawImage(plane,planex,planey);
 			}
-
+/*
 			// Random obj generation
 			for(var i = 0; i < obst.length; i++){
 				var o = obst[i];
@@ -87,8 +108,9 @@
 				var obj = {x: Math.floor(Math.random()*641*2), y:400, type: type};
 				obst.push(obj);
 			}
-
-			setTimeout("run();", 1);
+			setInterval(play, 1000/FPS);
+*/
+			setTimeout(play, 1000/FPS);
 		}
 	</script>
 	</body>
