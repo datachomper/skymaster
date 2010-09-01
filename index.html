@@ -1,13 +1,14 @@
-<!-- Holy shit! A game in 1 hour by Patrick Abel and Russ Meyerriecks -->
+<!-- Holy shit! A game in 1 hour by Russ Meyerriecks -->
 <html>
 	<head>
 		<title>SKYMASTER!</title>
 		<script type="text/javascript" src="jquery-1.3.2.min.js"></script>
 	</head>
 	<body style="text-align: center;">
-	<h1 style="color: orange;">SKYMASTER!</h1>
+	<h1 style="color: gray;">SKYMASTER!</h1>
 	<canvas id="can" width="800" height="400" style="border: 1px solid black"></canvas>
 	<h4>Sprites by <a href="http://prinzeugn.deviantart.com">Mark Simpson</a></h4>
+	<p> * Press [space] to start the game. Continue pressing [space] to speed up the simulation. </p>
 	<script type="text/javascript" src="libSkymaster.js"></script>
 	<script>
 		const FPS = 30;
@@ -21,7 +22,7 @@
 
 		var obst = new Array();
 		var iteration = 0;
-		var debug = true;
+		var debug = false;
 		var step = 0;
 
 		planex = 400;
@@ -31,8 +32,8 @@
 		planeright.src = "planeright.png";
 		bg.src = "bg.jpg";
 
-				var asteroid = new Asteroid();
-				obst.push(asteroid);
+		var asteroid = new Asteroid();
+		obst.push(asteroid);
 
 		$(window).keydown(function(e){
 			if(e.keyCode == 37){
@@ -100,7 +101,7 @@
 				obst.push(asteroid);
 			}
 
-			setTimeout(play, 1000/FPS);
+			setTimeout(play, 100/FPS);
 		}
 	</script>
 	</body>
